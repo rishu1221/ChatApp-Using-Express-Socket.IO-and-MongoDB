@@ -12,9 +12,7 @@ export default function Message({socket}){
             console.log(data);
             console.log("On Recieve Event Triggered")
             setMessage((state)=> [...state,{message : data.message, username : data.username, createdTime : data.createdTime}])
-        }
-        )
-
+        })
         console.log(message)
         return ()=>socket.off('recieve_message');
     },[socket])
@@ -29,7 +27,7 @@ export default function Message({socket}){
         <div className={styles.messagesColumn}>
             {
                 message.map((msg,index)=>{
-                    <div className={styles.message} key={index}>
+                    return <div className={styles.message} key={index}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <span className={styles.msgMeta}>{msg.username}</span>
                             <span className={styles.msgMeta}>

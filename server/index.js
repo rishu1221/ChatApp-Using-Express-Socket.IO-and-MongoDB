@@ -1,4 +1,6 @@
-
+const dotenv = require('dotenv')
+dotenv.config();
+const messageTable = require("../server/db/connect")
 const express = require('express')
 const cors = require('cors')
 const {Server} = require('socket.io')
@@ -19,8 +21,7 @@ const io = new Server(server,{
 })
 server.listen(3000)
 
-app.get("/",(req,res)=>{
-    console.log("Using Normal server as well");
+app.get("/",async (req,res)=>{
     res.send("Hello");
 })
 
@@ -63,6 +64,16 @@ io.on('connection',(socket)=>{
         //Create another event chat_room users which shows us how many users are there in that room
         socket.to(room).emit('chat_room_users',chatRoomUsers);
         socket.emit('chat_room_users',chatRoomUsers);
+
+        socket.on("send_message",async (data)=>{
+            const {username,room,createdTime,message} = data;
+            io.to(room).emit('recieve_message',data);
+
+            //Save this message inside DB
+            await messageTable.create(data);
+            console.log("Message sent");
+        })
+
     })
 })
 
