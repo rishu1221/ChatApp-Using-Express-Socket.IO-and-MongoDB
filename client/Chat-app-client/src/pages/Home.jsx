@@ -5,6 +5,7 @@ export default function Home({username,room,setUserName,setRoom,socket}){
     const navigate = useNavigate();
     const joinRoom = ()=>{
         if(room !=='' && username !==''){
+            console.log(username,room)
             socket.emit('join_room',{username,room});
             //Redirec to chat page
             navigate('/chat',{replace:true});
