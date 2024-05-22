@@ -1,0 +1,19 @@
+.InputMessageDiv{
+    width: 100%;
+}
+
+.input_message{
+    width: 90%;
+    height: 30px;
+    border-radius:5px;
+    border: none;
+}
+
+.btn-send{
+    width: 8%;
+    border-radius: 5px;
+    height: 30px;
+    border: none;
+    margin-left: 5px;
+    background-color: #FFE6E6;
+}

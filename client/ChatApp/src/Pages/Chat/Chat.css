@@ -1,0 +1,27 @@
+.chatWindow{
+    display: flex;
+    flex-direction: column;
+    height: 96vh;
+}
+
+.messageBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin : 5px 0px;
+    padding: 2px;
+    background-color: #E1AFD1;    
+    border-radius: 5px;
+}
+
+.msgDetails{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: end;
+    width: 100%;
+}
+
+.chatUpperPane{
+    height: 85vh;
+    overflow-Y: scroll;
+}
