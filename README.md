@@ -1,42 +1,38 @@
-# ChatApp-Using-Express-Socket.IO-and-HarperDB
+# Features
 
-# Step 1
-
-Create two separate folder server and Client
-Client contains our FrontEnd
-Server contains our Backend
-
-# Step 2 
-
-Initialise the front end using Vite (Google about it)
-After vite create a folder inside src with Pages that is going to contain our Pages
-
-# Step 3
-
-Decide the UI components
-Here we will have 2 components : Home and Chat 
-Home is like a login page for user to login (Contains username and then a dropdown to select which room he wishes to join)
-Chat is going to have the room specific chats.
-
-# Step 4
-
-Create a home page and then export it to use in App.js
-We can do lazy loading for home page but I did it normally.(You might see it wrapped inside a SUSPENSE ignore that)
-
-# Step 5
-
-Create the join room functionality.
-For this we are going to create a joinRoom callback that checks if username and select room has values then only it creates a socket event join room which the server has to listen. 
-
-# Learning Step
-
-I created 2 state variables for the purpose of storing username and room information and I created it inside the App component because it is going to be used by Home and Chat both the components. So always push it to the common parent or use some state management library(Not learned yet)
-
-# Moving to the server now(We are going to jump from server to client from time to time)
-
-# Step 6 
-
-Initialise your server folder by installing the packages express , socket.io (using fetch here not axios but you can use axios too) , dotenv
+1. Has Rooms Functionality to talk as a group
+2. User can join any room he wants and then chats with other room members
+3. User gets welcome message when we joins the room
+4. User gets notified if another user joins the same room
+5. User recieves the last 100 messages that have been communicated to that specific rooms
+6. Each message contains the timestamp for recieved messages and the sender's name.
 
 
 
+
+UI is only for learning purpose
+
+Join Room Page
+![image](https://github.com/rishu1221/ChatApp-Using-Express-Socket.IO-and-HarperDB/assets/36557161/fb26805a-1cd8-4466-8bd5-395a708cb45c)
+
+Chat Screen
+![image](https://github.com/rishu1221/ChatApp-Using-Express-Socket.IO-and-HarperDB/assets/36557161/13fba650-cf8a-47fe-8e49-83ed38c81aae)
+
+
+
+## Learning About Websockets : 
+
+1. Always figure out the flow of the events. (Kaha emit karna hai and kaha listener chahiye means either on server or client)
+3. Sockets connection create karna me dont directly pass app which is express ka server instance..Use http module.
+4. Once connection ho jaye toh on connection sara events likhte hai on server side.
+5. Concept of namespaces is used to manage multiple sets of sockets
+6. Rooms are just groups that socket.io track
+7. Socket.io has two variables rooms and id
+8. Id has the mapping about ki which id is mapped to which
+9. rooms has the mapping about all ids mapped to each room
+10. Each connection creates new ids.
+11. Documentation has lots of things. (Good to read if new use case comes)
+12. If login system banana ho toh instead of directly listening to localhost:5173(client server) listen to some route which is protected (Protected route me again Authorisation and Authentication ka logic)
+13. Async functions bhi use kar sakte ho for listeners agar DB calls hai toh
+
+# Basically whole idea yahi hai ki kisi bhi side pe event trigger kar sakte ho and uska listener bhi kisi bhi side pe reh sakta hai ... and bas normal backend operations karte raho usi me itna he hai websocket ....Efficiency me thoda time lagega.
