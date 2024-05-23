@@ -9,14 +9,12 @@ export default function Home({socket,username,room,setUsername,setRoom}){
     const navigate = useNavigate();
     
     const joinRoom = ()=>{
-        console.log("Join room emmiting");
 
         if(username!=='' && room!==''){
 
             socket.emit("join_room",{username,room});
-
+            socket.emit("send_last_100_message",{room : room});
             navigate("/chat");
-
         }
 
         
