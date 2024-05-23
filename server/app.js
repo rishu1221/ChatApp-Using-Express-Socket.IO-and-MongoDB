@@ -26,11 +26,17 @@ io.on("connection",function(socket){
         //This joins the room and that room will have this socket id mapped to it.
         socket.join(room);
 
+        //Emit the event to get the last 100 messages in the room
+        
+
+        //User created in DB
         await user.create({
             "username" : username,
             "room": room,
             "socket_id" : socket.id, 
         })
+
+
 
         
         //Now create a event to send message
@@ -66,6 +72,18 @@ io.on("connection",function(socket){
             console.log(data);
         }
         
+    })
+
+    socket.on("send_last_100_message",async function(data){
+        const {room} = data
+        console.log(room);
+
+        const last100Message = await message.find({ room: room })
+        .sort({ createdTime: 1 })
+        .limit(100)
+        .select({message : 1,username : 1,room : 1,createdTime: 1,_id:0});
+        console.log(last100Message);
+        socket.emit("receive_message",last100Message)
     })
 
 })
